@@ -5,7 +5,11 @@ const styles = StyleSheet.create({
 });
 
 function EventDetails() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Text>Event Details</Text>
+    </View>
+  );
 }
 
 export default EventDetails;

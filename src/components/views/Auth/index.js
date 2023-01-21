@@ -5,7 +5,11 @@ const styles = StyleSheet.create({
 });
 
 function Auth() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Text>Auth Screen</Text>
+    </View>
+  );
 }
 
 export default Auth;

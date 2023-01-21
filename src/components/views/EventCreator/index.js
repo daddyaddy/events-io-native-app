@@ -5,7 +5,11 @@ const styles = StyleSheet.create({
 });
 
 function EventCreator() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Text>Event Creator</Text>
+    </View>
+  );
 }
 
 export default EventCreator;

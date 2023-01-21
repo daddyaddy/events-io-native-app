@@ -5,7 +5,11 @@ const styles = StyleSheet.create({
 });
 
 function EventsList() {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Text>Events List</Text>
+    </View>
+  );
 }
 
 export default EventsList;
