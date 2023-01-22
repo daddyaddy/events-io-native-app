@@ -1,4 +1,4 @@
-import fetchFromApi from "./src/api";
+import fetchFromApi, { fetchEvents } from "./src/api";
 
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,17 +10,28 @@ import EventsList from "./src/components/views/EventsList";
 
 const Stack = createNativeStackNavigator();
 
-fetchFromApi();
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
-        <Stack.Screen name="Auth" component={Auth} />
-        <Stack.Screen name="Event Creator" component={EventCreator} />
-        <Stack.Screen name="Event Details" component={EventDetails} />
-        <Stack.Screen name="Events List" component={EventsList} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  componentDidMount() {}
+
+  render() {
+    const {} = this.state;
+
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Events List">
+          <Stack.Screen name="Auth" component={Auth} />
+          <Stack.Screen name="Event Creator" component={EventCreator} />
+          <Stack.Screen name="Event Details" component={EventDetails} />
+          <Stack.Screen name="Events List" component={EventsList} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
+
+export default App;

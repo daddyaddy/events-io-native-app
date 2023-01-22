@@ -1,15 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
+import * as React from "react";
 
 const styles = StyleSheet.create({
   container: {},
 });
 
-function EventCreator() {
-  return (
-    <View style={styles.container}>
-      <Text>Event Creator</Text>
-    </View>
-  );
+class EventCreator extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>EventCreator Scsreen</Text>
+      </View>
+    );
+  }
 }
 
 export default EventCreator;

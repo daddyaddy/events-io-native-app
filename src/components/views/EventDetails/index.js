@@ -1,15 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
+import * as React from "react";
 
 const styles = StyleSheet.create({
   container: {},
 });
 
-function EventDetails() {
-  return (
-    <View style={styles.container}>
-      <Text>Event Details</Text>
-    </View>
-  );
+class EventDetails extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>EventDetails Screen</Text>
+      </View>
+    );
+  }
 }
 
 export default EventDetails;
