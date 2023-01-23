@@ -2,12 +2,13 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   SectionList,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import * as React from "react";
-import fetchFromApi, { fetchEvents } from "../../../api";
+import fetchFromApi, { listEvents } from "../../../api";
 import styles from "./index.style";
 
 class EventsList extends React.Component {
@@ -18,63 +19,55 @@ class EventsList extends React.Component {
     };
   }
   componentDidMount() {
-    this.fetchEvents();
+    this.listEvents();
   }
 
-  fetchEvents = async () => {
-    const events = await fetchEvents();
-    this.setState({ events });
+  listEvents = async () => {
+    const events = await listEvents();
+    this.setState({ events: events || [] });
   };
 
-  handleEventPress = () => {
+  handleEventPress = (event) => {
     const { navigation } = this.props;
-    navigation.navigate("Event Details", { name: "Jane" });
+    navigation.navigate("Event Details", { event });
   };
 
   render() {
     const { events } = this.state;
     return (
       <View style={styles.container}>
-        {
-          <SectionList
-            sections={[
-              {
-                title: "Your upcoming events",
-                data: events.filter((event) => event.is_private),
-              },
-              {
-                title: "Public events",
-                data: events.filter((event) => !event.is_private),
-              },
-            ]}
-            keyExtractor={(item, index) => item + index}
-            renderSectionHeader={({ section: { title } }) => (
-              <Text style={{ fontSize: 20, fontWeight: "600" }}>{title}</Text>
-            )}
-            renderItem={({ item: event }) => {
-              return (
-                <TouchableOpacity onPress={this.handleEventPress}>
-                  <ImageBackground
-                    style={styles.event}
-                    source={{ uri: event.image_url }}
-                    resizeMode="cover"
-                    onMagicTap={this.handleEventMagicTap}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontWeight: "500",
-                        fontSize: 18,
-                      }}
-                    >
-                      {event.name}
-                    </Text>
-                  </ImageBackground>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        }
+        <SectionList
+          sections={[
+            {
+              title: "Your upcoming events",
+              data: events.filter((event) => event.is_private),
+            },
+            {
+              title: "Public events",
+              data: events.filter((event) => !event.is_private),
+            },
+          ]}
+          keyExtractor={(item, index) => item + index}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={{ ...styles.header, marginBottom: 10 }}>{title}</Text>
+          )}
+          renderItem={({ item: event }) => {
+            return (
+              <TouchableOpacity onPress={() => this.handleEventPress(event)}>
+                <ImageBackground
+                  style={styles.event}
+                  source={{ uri: event.image_url }}
+                  resizeMode="cover"
+                  onMagicTap={this.handleEventMagicTap}
+                >
+                  <Text style={{ ...styles.header, color: "white" }}>
+                    {event.name}
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            );
+          }}
+        />
       </View>
     );
   }

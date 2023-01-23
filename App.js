@@ -1,4 +1,4 @@
-import fetchFromApi, { fetchEvents } from "./src/api";
+import { Text, TouchableOpacity } from "react-native";
 
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -26,8 +26,26 @@ class App extends React.Component {
         <Stack.Navigator initialRouteName="Events List">
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen name="Event Creator" component={EventCreator} />
-          <Stack.Screen name="Event Details" component={EventDetails} />
-          <Stack.Screen name="Events List" component={EventsList} />
+          <Stack.Screen
+            name="Event Details"
+            component={EventDetails}
+            options={({ route }) => ({
+              title: route?.params?.event?.name,
+            })}
+          />
+          <Stack.Screen
+            name="Events List"
+            component={EventsList}
+            options={({ navigation }) => ({
+              headerRight: () => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Event Creator", {})}
+                >
+                  <Text>Add</Text>
+                </TouchableOpacity>
+              ),
+            })}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
     borderRadius: 15,
+    backgroundColor: "#222",
+  },
+  header: {
+    fontSize: 23,
+    fontWeight: "600",
   },
 });
 
