@@ -25,7 +25,13 @@ class App extends React.Component {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Events List">
           <Stack.Screen name="Auth" component={Auth} />
-          <Stack.Screen name="Event Creator" component={EventCreator} />
+          <Stack.Screen
+            name="Event Creator"
+            component={EventCreator}
+            options={({ route }) => ({
+              title: route?.params?.event?.name || "Event Creator",
+            })}
+          />
           <Stack.Screen
             name="Event Details"
             component={EventDetails}

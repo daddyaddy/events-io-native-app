@@ -10,15 +10,21 @@ import * as React from "react";
 import styles from "./index.style";
 import { createEvent, updateEvent } from "../../../api";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import DatePicker from "@react-native-community/datetimepicker";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import FormPart from "../../shared/FormPart";
 
 const initialState = {
-  event_id: undefined,
-  name: "",
-  description: "",
-  date: "2023-01-01T11:30:00.555Z",
-  image_url: "",
-  is_private: true,
-  is_published: true,
+  event: {
+    id: undefined,
+    name: "",
+    description: "",
+    date: "2023-01-01T11:30:00.555Z",
+    image_url: "",
+    is_private: true,
+    is_published: true,
+  },
+  isDatePickerOpen: false,
 };
 
 class EventCreator extends React.Component {
@@ -38,52 +44,24 @@ class EventCreator extends React.Component {
   }
 
   fillFormIfPossible = () => {
-    if (!this.props.route?.params.event)
+    if (!this.props.route?.params?.event)
       return this.setState({ ...initialState });
-    const { event } = this.props?.route?.params;
+    const { event } = this.props.route.params;
 
     this.setState({
-      event_id: event.id,
-      name: event.name,
-      description: event.description,
-      date: event.date,
-      image_url: event.image_url,
-      is_published: event.is_published,
-      is_private: event.is_private,
+      event: { ...this.state.event, ...event },
     });
   };
 
   handleTextInputChange = (stateKey) => (value) => {
-    this.setState({ [stateKey]: value });
+    this.setState({ event: { ...this.state.event, [stateKey]: value } });
   };
 
   handleCreateButtonPress = () => {
-    const {
-      event_id,
-      name,
-      description,
-      date,
-      image_url,
-      is_published,
-      is_private,
-    } = this.state;
+    const { event } = this.state;
     event_id
-      ? this.updateEvent(event_id, {
-          name,
-          description,
-          date,
-          image_url,
-          is_published,
-          is_private,
-        })
-      : this.createEvent({
-          name,
-          description,
-          date,
-          image_url,
-          is_published,
-          is_private,
-        });
+      ? this.updateEvent(event_id, { ...event })
+      : this.createEvent({ ...event });
   };
 
   handleCancelButtonPress = () => {
@@ -94,6 +72,7 @@ class EventCreator extends React.Component {
   createEvent = (payload) => {
     const { navigation } = this.props;
     const event = createEvent(payload);
+    3;
     if (!event) return;
     navigation.navigate("Event Details", { event });
   };
@@ -106,73 +85,114 @@ class EventCreator extends React.Component {
   };
 
   render() {
-    const { name, description, image_url, event_id } = this.state;
+    const { event, isDatePickerOpen } = this.state;
+    const { name, description, image_url, id } = event;
     return (
       <View style={styles.container}>
-        <View style={styles.form_part}>
-          <Text>Name*</Text>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={this.handleTextInputChange("name")}
-          />
-        </View>
-        <View style={styles.form_part}>
-          <Text>Description</Text>
-          <TextInput
-            style={styles.input}
-            value={description}
-            multiline={true}
-            numberOfLines={3}
-            onChangeText={this.handleTextInputChange("description")}
-          />
-        </View>
-        <View style={{ ...styles.form_part, marginBottom: 60 }}>
-          <Text>Location*</Text>
-          <GooglePlacesAutocomplete
-            query={{
-              key: "AIzaSyDJcXi6PLTNX0imqYJ1rBi0GfP1PGR4xw4",
-              language: "en",
-            }}
-            minLength={2}
-            autoFocus={false}
-            returnKeyType={"default"}
-            fetchDetails={true}
-            onFail={(err) => {
-              console.log("@", err);
-            }}
-            onPress={(placeData, detail) => {
-              const { lng, lat } = detail.geometry.location;
-            }}
-            styles={{
-              textInput: styles.input,
-              predefinedPlacesDescription: {
-                color: "#1faadb",
-              },
+        <ScrollView style={styles.inputs}>
+          <FormPart
+            label={"Name"}
+            isRequired={true}
+            icon={
+              <Icon name="drive-file-rename-outline" size={30} color={"#888"} />
+            }
+            inputProps={{
+              value: name,
+              onChangeText: this.handleTextInputChange("name"),
             }}
           />
-        </View>
-        <View style={styles.form_part}>
-          <Text>Image url</Text>
-          <TextInput
-            style={styles.input}
-            value={image_url}
-            onChangeText={this.handleTextInputChange("image_url")}
+          <FormPart
+            label={"Description"}
+            isRequired={true}
+            icon={<Icon name="description" size={30} color={"#888"} />}
+            inputProps={{
+              value: description,
+              multiline: true,
+              numberOfLines: 3,
+              onChangeText: this.handleTextInputChange("description"),
+            }}
           />
-        </View>
-        <View style={styles.form_part}>
-          <Text>Date*</Text>
-          <TextInput style={styles.input} value={""} />
-        </View>
-
+          <FormPart
+            label={"Image url"}
+            isRequired={true}
+            icon={<Icon name="image" size={30} color={"#888"} />}
+            inputProps={{
+              value: image_url,
+              onChangeText: this.handleTextInputChange("image_url"),
+            }}
+          />
+          <FormPart
+            label={"Location"}
+            isRequired={true}
+            icon={<Icon name="location-pin" size={30} color={"#888"} />}
+            ownInput={
+              <GooglePlacesAutocomplete
+                query={{
+                  key: "X",
+                  language: "en",
+                }}
+                placeholder={"Location"}
+                minLength={2}
+                autoFocus={false}
+                returnKeyType={"default"}
+                fetchDetails={true}
+                onFail={(err) => {
+                  console.log("@", err);
+                }}
+                onPress={(placeData, detail) => {
+                  const { lng, lat } = detail.geometry.location;
+                }}
+                styles={{
+                  textInput: styles.input,
+                  predefinedPlacesDescription: {
+                    color: "#1faadb",
+                  },
+                }}
+              />
+            }
+          />
+          <FormPart
+            label={"Date"}
+            isRequired={true}
+            icon={<Icon name="date-range" size={30} color={"#888"} />}
+            ownInput={
+              <>
+                <TouchableOpacity
+                  style={styles.input}
+                  onPressIn={(event) => {
+                    this.setState({ isDatePickerOpen: true });
+                  }}
+                >
+                  <Text>{new Date(event.date).toDateString()}</Text>
+                </TouchableOpacity>
+                {isDatePickerOpen && (
+                  <DatePicker
+                    value={event.date ? new Date(event.date) : new Date()}
+                    style={{ flex: 1 }}
+                    onChange={(event) => {
+                      const { timestamp } = event.nativeEvent;
+                      const date = new Date(timestamp).toISOString();
+                      this.setState({
+                        isDatePickerOpen: false,
+                        event: { ...this.state.event, date },
+                      });
+                    }}
+                  />
+                )}
+              </>
+            }
+          />
+        </ScrollView>
         <View style={{ ...styles.form_part, ...styles.buttons }}>
           <TouchableOpacity onPress={this.handleCancelButtonPress}>
             <Text>Cancel</Text>
           </TouchableOpacity>
 
           <Button
+            style={styles.button}
             onPress={this.handleCreateButtonPress}
-            title={event_id ? "Update" : "Create"}
+            color={"#07d01d"}
+            title={id ? "Update Event" : "Create Event"}
           />
         </View>
       </View>

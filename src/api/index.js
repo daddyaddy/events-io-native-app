@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = `https://aa1e-2a02-a311-60-a780-3440-52f1-f6b1-920.eu.ngrok.io/ninja-api`;
+const apiUrl = `https://9eb1-2a02-a311-60-a780-f428-a052-4bf1-a203.eu.ngrok.io/ninja-api`;
 
 const fetchFromApi = async (method, endpoint, params, payload) => {
   try {
@@ -23,9 +23,9 @@ const fetchFromApi = async (method, endpoint, params, payload) => {
 export const listEvents = async () => fetchFromApi("GET", "/events");
 
 export const createEvent = async (payload) =>
-  fetchFromApi("POST", "/events", undefined, payload);
+  fetchFromApi("POST", "/events/", undefined, payload);
 
 export const updateEvent = async (event_id, payload) =>
-  fetchFromApi("PUT", "/events", { event_id }, payload);
+  fetchFromApi("PUT", "/events/", { event_id }, payload);
 
 export default fetchFromApi;

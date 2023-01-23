@@ -1,12 +1,16 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  form_part: {
+    marginVertical: 10,
+    margin: 12,
   },
-
-  inputs: {
-    flex: 1,
+  input_view: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon_view: {
+    marginRight: 10,
   },
   input: {
     flex: 1,
@@ -18,15 +22,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     backgroundColor: "white",
   },
-  buttons: {
-    flex: 0,
-    marginHorizontal: 15,
-    marginBottom: 25,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  button: {},
 });
 
 export default styles;
