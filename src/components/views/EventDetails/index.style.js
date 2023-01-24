@@ -1,30 +1,48 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   banner: {
-    height: 300,
+    height: 250,
     justifyContent: "flex-end",
     alignItems: "flex-start",
     marginBottom: 15,
     borderRadius: 15,
-    padding: 30,
+    padding: 25,
   },
   banner_header: {
     color: "white",
     fontWeight: "500",
-    fontSize: 22,
+    fontSize: 30,
+    textShadowColor: "#222",
+    textShadowRadius: 2,
+    marginBottom: 3,
   },
   banner_span: {
     color: "white",
     fontWeight: "500",
+    textShadowColor: "#222",
+    textShadowRadius: 2,
+    marginBottom: 3,
   },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  row_icon: {
+    marginRight: 10,
+  },
+  row_text: {},
   section: {
     marginBottom: 20,
   },
   header: {
     fontSize: 23,
     fontWeight: "600",
+    marginBottom: 5,
   },
   participants: {
     flexDirection: "column",

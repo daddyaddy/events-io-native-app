@@ -8,24 +8,9 @@ import {
 } from "react-native";
 import * as React from "react";
 import styles from "./index.style";
-import MapView from "react-native-maps";
-
-const EventBadge = (props) => {
-  const { participant } = props;
-
-  const badgeType =
-    !participant.was_accepted && !participant.was_rejected
-      ? "unknown"
-      : participant.was_accepted
-      ? "accepted"
-      : "rejected";
-
-  return (
-    <View style={{ ...styles.badge, ...styles[badgeType] }}>
-      <Text style={styles.status}>{badgeType}</Text>
-    </View>
-  );
-};
+import GoogleMap from "../../shared/GoogleMap";
+import EventBadge from "../../shared/EventBadge";
+import Icon from "react-native-vector-icons/Octicons";
 
 class EventDetails extends React.Component {
   constructor(props) {
@@ -43,8 +28,13 @@ class EventDetails extends React.Component {
     const { event } = this.props.route.params;
 
     return (
-      <View>
-        <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          nestedScrollEnabled={true}
+          stickyHeaderIndices={0}
+          showsVerticalScrollIndicator={false}
+        >
           <ImageBackground
             style={styles.banner}
             source={{ uri: event.image_url }}
@@ -58,14 +48,39 @@ class EventDetails extends React.Component {
           </ImageBackground>
           <View style={styles.section}>
             <Text style={styles.header}>Details</Text>
-            <Text>{event.date}</Text>
-            {event.location && <Text>{event.location.place}</Text>}
+            {event.date !== undefined && (
+              <View style={styles.row}>
+                <Icon
+                  name="clock"
+                  style={styles.row_icon}
+                  size={25}
+                  color={"#888"}
+                />
+                <Text style={styles.row_text}>
+                  {new Date(event.date).toDateString()}
+                </Text>
+              </View>
+            )}
+            {event.location !== undefined && (
+              <View style={styles.row}>
+                <Icon
+                  name="location"
+                  style={styles.row_icon}
+                  size={30}
+                  color={"#888"}
+                />
+                <Text style={styles.row_text}>{event.location.place}</Text>
+              </View>
+            )}
+            {event.location !== undefined && (
+              <GoogleMap location={event.location} />
+            )}
           </View>
           <View style={styles.section}>
             <Text style={styles.header}>Participants</Text>
             <View style={styles.participants}>
               {event.participants.map((participant) => (
-                <View key={participant} style={styles.participant}>
+                <View key={participant.user.id} style={styles.participant}>
                   <View style={styles.participant_user}>
                     <Text>{participant.user.email}</Text>
                   </View>

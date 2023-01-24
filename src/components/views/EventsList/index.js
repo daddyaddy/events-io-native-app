@@ -56,6 +56,7 @@ class EventsList extends React.Component {
               <TouchableOpacity onPress={() => this.handleEventPress(event)}>
                 <ImageBackground
                   style={styles.event}
+                  imageStyle={{ borderRadius: 15 }}
                   source={{ uri: event.image_url }}
                   resizeMode="cover"
                   onMagicTap={this.handleEventMagicTap}

@@ -1,10 +1,11 @@
 import axios from "axios";
+import { events as mockEvents } from "./mock/events";
 
-const apiUrl = `https://9eb1-2a02-a311-60-a780-f428-a052-4bf1-a203.eu.ngrok.io/ninja-api`;
+const apiUrl = `https://5ee0-2a02-a311-60-a780-112c-fabe-83c8-19a4.eu.ngrok.io/ninja-api`;
 
 const fetchFromApi = async (method, endpoint, params, payload) => {
   try {
-    const response = await axios(`${apiUrl}${endpoint}`, {
+    const response = await axios(`${apiUrl}${endpoint}${params}`, {
       method,
       headers: {
         "x-api-key": "f5ac49c05fac73a516653e1474b0c8f6d939ab07",
@@ -14,18 +15,23 @@ const fetchFromApi = async (method, endpoint, params, payload) => {
         method === "POST" && payload !== undefined && JSON.stringify(payload),
     });
     const { data } = response;
+    console.log("@", data);
     return data;
   } catch (error) {
     console.error(error.message);
   }
 };
 
-export const listEvents = async () => fetchFromApi("GET", "/events");
+export const listEvents = async () => {
+  const events = (await fetchFromApi("GET", "/events", "")) || mockEvents;
+  console.log(events);
+  return events;
+};
 
 export const createEvent = async (payload) =>
-  fetchFromApi("POST", "/events/", undefined, payload);
+  fetchFromApi("POST", "/events/", "", payload);
 
 export const updateEvent = async (event_id, payload) =>
-  fetchFromApi("PUT", "/events/", { event_id }, payload);
+  fetchFromApi("PUT", "/events", `/${event_id}`, payload);
 
 export default fetchFromApi;

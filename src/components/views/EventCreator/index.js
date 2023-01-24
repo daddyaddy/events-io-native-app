@@ -23,6 +23,11 @@ const initialState = {
     image_url: "",
     is_private: true,
     is_published: true,
+    location: {
+      place: "Lublin",
+      longitude: 51.246452,
+      latitude: 22.568445,
+    },
   },
   isDatePickerOpen: false,
 };
@@ -59,9 +64,8 @@ class EventCreator extends React.Component {
 
   handleCreateButtonPress = () => {
     const { event } = this.state;
-    event_id
-      ? this.updateEvent(event_id, { ...event })
-      : this.createEvent({ ...event });
+    const { id } = event;
+    id ? this.updateEvent(id, { ...event }) : this.createEvent({ ...event });
   };
 
   handleCancelButtonPress = () => {
@@ -69,19 +73,22 @@ class EventCreator extends React.Component {
     navigation.navigate("Events List", {});
   };
 
-  createEvent = (payload) => {
+  createEvent = async (payload) => {
     const { navigation } = this.props;
-    const event = createEvent(payload);
+    const event = await createEvent(payload);
     3;
     if (!event) return;
     navigation.navigate("Event Details", { event });
   };
 
-  updateEvent = (event_id, payload) => {
+  updateEvent = async (event_id, payload) => {
     const { navigation } = this.props;
-    const event = updateEvent(event_id, payload);
-    if (!event) return;
-    navigation.navigate("Event Details", { event });
+    const { event: oldEvent } = this.props.route.params;
+    const newEvent = await updateEvent(event_id, payload);
+    if (!newEvent) return;
+    navigation.navigate("Event Details", {
+      event: { ...oldEvent, ...newEvent },
+    });
   };
 
   render() {
@@ -89,7 +96,7 @@ class EventCreator extends React.Component {
     const { name, description, image_url, id } = event;
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.inputs}>
+        <View style={styles.inputs}>
           <FormPart
             label={"Name"}
             isRequired={true}
@@ -113,24 +120,16 @@ class EventCreator extends React.Component {
             }}
           />
           <FormPart
-            label={"Image url"}
-            isRequired={true}
-            icon={<Icon name="image" size={30} color={"#888"} />}
-            inputProps={{
-              value: image_url,
-              onChangeText: this.handleTextInputChange("image_url"),
-            }}
-          />
-          <FormPart
             label={"Location"}
             isRequired={true}
             icon={<Icon name="location-pin" size={30} color={"#888"} />}
             ownInput={
               <GooglePlacesAutocomplete
                 query={{
-                  key: "X",
+                  key: process.env.GOOGLE_API_KEY,
                   language: "en",
                 }}
+                value={event.location}
                 placeholder={"Location"}
                 minLength={2}
                 autoFocus={false}
@@ -151,6 +150,16 @@ class EventCreator extends React.Component {
               />
             }
           />
+          <FormPart
+            label={"Image url"}
+            isRequired={true}
+            icon={<Icon name="image" size={30} color={"#888"} />}
+            inputProps={{
+              value: image_url,
+              onChangeText: this.handleTextInputChange("image_url"),
+            }}
+          />
+
           <FormPart
             label={"Date"}
             isRequired={true}
@@ -182,18 +191,18 @@ class EventCreator extends React.Component {
               </>
             }
           />
-        </ScrollView>
-        <View style={{ ...styles.form_part, ...styles.buttons }}>
-          <TouchableOpacity onPress={this.handleCancelButtonPress}>
-            <Text>Cancel</Text>
-          </TouchableOpacity>
+          <View style={{ ...styles.form_part, ...styles.buttons }}>
+            <TouchableOpacity onPress={this.handleCancelButtonPress}>
+              <Text>Cancel</Text>
+            </TouchableOpacity>
 
-          <Button
-            style={styles.button}
-            onPress={this.handleCreateButtonPress}
-            color={"#07d01d"}
-            title={id ? "Update Event" : "Create Event"}
-          />
+            <Button
+              style={styles.button}
+              onPress={this.handleCreateButtonPress}
+              color={"#07d01d"}
+              title={id ? "Update Event" : "Create Event"}
+            />
+          </View>
         </View>
       </View>
     );
