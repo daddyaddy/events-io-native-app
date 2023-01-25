@@ -35,17 +35,20 @@ class EventDetails extends React.Component {
           stickyHeaderIndices={0}
           showsVerticalScrollIndicator={false}
         >
-          <ImageBackground
-            style={styles.banner}
-            source={{ uri: event.image_url }}
-            resizeMode="cover"
-          >
-            <Text style={styles.banner_header}>{event.name}</Text>
-            <Text style={styles.banner_span}>{event.description}</Text>
-            <Text style={styles.banner_span}>
-              {event.organizer.email} is the organizer
-            </Text>
-          </ImageBackground>
+          <View style={{ backgroundColor: "#222" }}>
+            <ImageBackground
+              style={styles.banner}
+              source={{ uri: event.image_url }}
+              resizeMode="cover"
+            >
+              <Text style={styles.banner_header}>{event.name}</Text>
+              <Text style={styles.banner_span}>{event.description}</Text>
+              <Text style={styles.banner_span}>
+                {event.organizer.email} is the organizer
+              </Text>
+            </ImageBackground>
+          </View>
+
           <View style={styles.section}>
             <Text style={styles.header}>Details</Text>
             {event.date !== undefined && (
@@ -61,18 +64,20 @@ class EventDetails extends React.Component {
                 </Text>
               </View>
             )}
-            {event.location !== undefined && (
-              <View style={styles.row}>
-                <Icon
-                  name="location"
-                  style={styles.row_icon}
-                  size={30}
-                  color={"#888"}
-                />
-                <Text style={styles.row_text}>{event.location.place}</Text>
-              </View>
-            )}
-            {event.location !== undefined && (
+            {event.location !== undefined &&
+              event.location !== null &&
+              event.location.place !== undefined && (
+                <View style={styles.row}>
+                  <Icon
+                    name="location"
+                    style={styles.row_icon}
+                    size={30}
+                    color={"#888"}
+                  />
+                  <Text style={styles.row_text}>{event.location.place}</Text>
+                </View>
+              )}
+            {event.location !== undefined && event.location !== null && (
               <GoogleMap location={event.location} />
             )}
           </View>
@@ -101,7 +106,7 @@ class EventDetails extends React.Component {
               />
             )}
           </View>
-          <View>
+          <View style={styles.section}>
             <Button onPress={this.handleUpdateButtonPress} title="Update" />
           </View>
         </ScrollView>

@@ -8,10 +8,23 @@ class GoogleMap extends React.Component {
     super(props);
   }
 
+  handleRegionChange = () => {
+    const { location } = this.props;
+    const { latitude, longitude } = location;
+    this.setState({ latitude, longitude });
+    mapRef.current.animateToRegion({
+      latitude,
+      longitude,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.1,
+    });
+  };
+
   render() {
     const { location } = this.props;
     const { latitude, longitude } = location;
-    console.log(latitude, longitude);
+
+    console.log("GOOGLE_MAP", location);
 
     return (
       <View style={styles.container}>
@@ -20,12 +33,18 @@ class GoogleMap extends React.Component {
           scrollEnabled={false}
           zoomEnabled={false}
           initialRegion={{
-            latitude: 51.246452,
-            longitude: 22.568445,
+            latitude,
+            longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-          region={{ latitude, longitude }}
+          region={{
+            latitude,
+            longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          onRegionChange={this.handleRegionChange}
         ></MapView>
       </View>
     );

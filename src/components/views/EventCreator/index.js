@@ -1,11 +1,4 @@
-import {
-  Text,
-  Button,
-  TextInput,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { Text, Button, View, TouchableOpacity } from "react-native";
 import * as React from "react";
 import styles from "./index.style";
 import { createEvent, updateEvent } from "../../../api";
@@ -25,8 +18,8 @@ const initialState = {
     is_published: true,
     location: {
       place: "Lublin",
-      longitude: 51.246452,
-      latitude: 22.568445,
+      latitude: 51.246452,
+      longitude: 22.568445,
     },
   },
   isDatePickerOpen: false,
@@ -64,8 +57,10 @@ class EventCreator extends React.Component {
 
   handleCreateButtonPress = () => {
     const { event } = this.state;
-    const { id } = event;
-    id ? this.updateEvent(id, { ...event }) : this.createEvent({ ...event });
+    const { id, ...eventWithoutId } = event;
+    id
+      ? this.updateEvent(id, { ...eventWithoutId })
+      : this.createEvent({ ...eventWithoutId });
   };
 
   handleCancelButtonPress = () => {
@@ -76,7 +71,7 @@ class EventCreator extends React.Component {
   createEvent = async (payload) => {
     const { navigation } = this.props;
     const event = await createEvent(payload);
-    3;
+
     if (!event) return;
     navigation.navigate("Event Details", { event });
   };
@@ -139,7 +134,17 @@ class EventCreator extends React.Component {
                   console.log("@", err);
                 }}
                 onPress={(placeData, detail) => {
-                  const { lng, lat } = detail.geometry.location;
+                  const { formatted_address: place } = detail;
+                  const { lng: longitude, lat: latitude } =
+                    detail.geometry.location;
+                  const location = { longitude, latitude, place };
+                  console.log("GOOGLE AUTOCOMPLETE", location);
+                  this.setState({
+                    event: {
+                      ...this.state.event,
+                      location,
+                    },
+                  });
                 }}
                 styles={{
                   textInput: styles.input,
@@ -199,7 +204,6 @@ class EventCreator extends React.Component {
             <Button
               style={styles.button}
               onPress={this.handleCreateButtonPress}
-              color={"#07d01d"}
               title={id ? "Update Event" : "Create Event"}
             />
           </View>

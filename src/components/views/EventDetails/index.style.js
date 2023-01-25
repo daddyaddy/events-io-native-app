@@ -38,11 +38,12 @@ const styles = StyleSheet.create({
   row_text: {},
   section: {
     marginBottom: 20,
+    paddingHorizontal: 10,
   },
   header: {
     fontSize: 23,
     fontWeight: "600",
-    marginBottom: 5,
+    margin: 5,
   },
   participants: {
     flexDirection: "column",

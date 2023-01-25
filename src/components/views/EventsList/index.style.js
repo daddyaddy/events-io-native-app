@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, SectionList } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
+    padding: 10,
     paddingTop: 20,
   },
   event: {

@@ -23,7 +23,7 @@ class App extends React.Component {
 
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Events List">
+        <Stack.Navigator initialRouteName="Auth">
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen
             name="Event Creator"

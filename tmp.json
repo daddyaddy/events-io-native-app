@@ -1,0 +1,92 @@
+{
+  "address_components": [
+    { "long_name": "Warsaw", "short_name": "Warsaw", "types": [] },
+    { "long_name": "Warsaw", "short_name": "Warsaw", "types": [] },
+    {
+      "long_name": "Masovian Voivodeship",
+      "short_name": "Masovian Voivodeship",
+      "types": []
+    },
+    { "long_name": "Poland", "short_name": "PL", "types": [] },
+    { "long_name": "03", "short_name": "03", "types": [] }
+  ],
+  "adr_address": "<span class=\"locality\">Warsaw</span>, <span class=\"country-name\">Poland</span>",
+  "formatted_address": "Warsaw, Poland",
+  "geometry": {
+    "location": { "lat": 52.2296756, "lng": 21.0122287 },
+    "viewport": { "northeast": {}, "southwest": {} }
+  },
+  "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+  "icon_background_color": "#7B9EB0",
+  "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+  "name": "Warsaw",
+  "photos": [
+    {
+      "height": 1079,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgNBPbj_diE6nvaD-EIdU357Wno2We894RwlWHegroie1vpBktseZlUHIzwWwxon-rK37lmF5w8RNsfLOCWn46uu5FGZ8-2YK4mAAzLwJk440J-00of3cTJzIJ7voLVt_ay-nsYTag12x79K3m4oFYyvct8LYSWeY4WByWtsTMJ0jr3n",
+      "width": 1600
+    },
+    {
+      "height": 4247,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgMFGZsK75qE5YWiVPuszlSyobRRT0sqtMidPyZ5AHj3uFKH0zPFHrUEoFJVHb74AHRpn1IS51ieDozcpbWgTmorqgs10FF9ssr0HV1HbPcSkpsd2h-BQr9iSW75wzbfHOrAByjf-ZPJQC0l5OPxMcQKYjFjJRsZVhiAqVl_otifCtxQ",
+      "width": 4460
+    },
+    {
+      "height": 630,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgM0bh5IINPjoBtUNV9Ki1eB4jIco_yB-KglF4m6khZxSeLcZrq3uq7ybQ1-hZrXA7sGV6ci51iR1t6dTuIIDAW9O_0abCk1MzKNwxtKToeOP0X9-RmyBfLTOcLeR2cNAwAdX_j3_bFC2xUacEPAdcsl2PAJ0wiEb3okM0enm9Rlp6vf",
+      "width": 1200
+    },
+    {
+      "height": 450,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgOcE97oi_78yE907EtFbvZRVAtwgDqF8xtEM38lTne4QEDbZw0HyDcRmF5gaKXKPWiJ8gGlu07zX6Pf4iter4ptW72g3xeo_F32JhR8dkFHeoePts5lIQElkqa--ooIh7mLcnEAoABedzOpS5v_Jy-vl_aQamq36hSbsQpZ-qYIVA7t",
+      "width": 612
+    },
+    {
+      "height": 3069,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgMMlKceayZL9Dj3ORvI-ix3EpD2PYLJG2w1flQTEs5Gn6v-1jGRFhVRmGBHJDcxTMa046x8JXLP5fYpfNilbzqGB9Hv0JoKC4ucV5kGUoDn4ure7PXhlnsutxnjW_4OI47pI866UuvzlVAjKxg23aTRk5w6e2icFomwSXhnDLrXGlau",
+      "width": 5805
+    },
+    {
+      "height": 2084,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgOL-EXI08XP9_d4JWvPFVyuARKnx6WfNaBIwT9at4Dhr5U8W--GhkLm4IK5eL_XS4B4sW78p2pA3hNIw_nuwLO3TLwHqcAMLYq0eK0tZpLN3VBj29nQgF6_3prIY5Dpq2_4CvDuUsp8TlTFH63GpUf1_LbUIMZxPATrWgi8FAmV5IxH",
+      "width": 4624
+    },
+    {
+      "height": 1932,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgP26nO-Ge8JPmzJMys1DY-J2MuXegYLOgP3HSC7ARAJEDGTuKMeLgUYuDjk8KPtBKzrXuD6s5PG2tTaMpbnaWFxkzLUtlgN8Z-1_y3R5wQefuOXbIItI6tY86xmh8zxZBEPJWpgXLs-lCwuK1bqh8fCaaJXMc2D-9Q7xbO8b3dfmOpA",
+      "width": 2576
+    },
+    {
+      "height": 4032,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgMr5ZU6Mz1YOOXiPnJg1INnfvLjSv16J8e32IDeHukobWH9iKBPGJqMHSbMuyBMIia7y2KmxjF5YfAwFCaEVO9xC9tG7bv_vJDjA-Je46fGJcTl1mMVwfkqWdqj47OvPkC54rNXLVqWgTCAYmbjTySvC0mT08fux1MNdHyjbk7KLnLy",
+      "width": 3024
+    },
+    {
+      "height": 1352,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgP0KOGBliNdC1ob8qo7Z48xQt8RJjiRelDtw19pn0FOIBHoijFfbN9k3qA0NdfOMURXCth620TBNGKvmc6hwkGzWHWz2WL8erxBe3-ErvdjPdiyjD7Xx_8XPBc43YYuFn276P_NcRkDkYtoXgDjeMEgcisOyXEhjyZOFVvENxmjXNdV",
+      "width": 1078
+    },
+    {
+      "height": 1042,
+      "html_attributions": [],
+      "photo_reference": "AfLeUgMZRlcQ83odKNnJjyslXMWDWuq3kpPetzRzI-VA_qNyl2vJ55ez_muw8_sOEc8zC3iymgHunRB0rkHmXY6qDXkZy7AzlwxpMz30imfq3rC9ElvbppE6B29kqADSqLQhzkEJJsWk_c9s-oP_NHFNE-w10F4vscUNo3Xb7CsojJ1xUS0C",
+      "width": 834
+    }
+  ],
+  "place_id": "ChIJAZ-GmmbMHkcR_NPqiCq-8HI",
+  "reference": "ChIJAZ-GmmbMHkcR_NPqiCq-8HI",
+  "types": ["locality", "political"],
+  "url": "https://maps.google.com/?q=Warsaw,+Poland&ftid=0x471ecc669a869f01:0x72f0be2a88ead3fc",
+  "utc_offset": 60,
+  "vicinity": "Warsaw",
+  "website": "http://www.um.warszawa.pl/"
+}
